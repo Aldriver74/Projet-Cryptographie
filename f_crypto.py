@@ -6,15 +6,10 @@ import secrets
 import os
 from colorama import Back, Fore, Style, deinit, init
 import pandas as pd 
-
-import secrets
-import re
-from colorama import Back, Fore, Style, deinit, init
-import pandas as pd 
 from sympy import symbols, simplify
 from sympy.abc import x
 from sympy import Rational
-import random
+
 
 
 symbol_value = pd.read_excel("symbol_value.xlsx")
@@ -255,7 +250,6 @@ def lagrange_sympy(x_vals, y_vals):
             if i != j:
                 xi=int(x_vals[i])
                 xj=int(x_vals[j])
-                print (type(x))
                 term *= (x - xj) / (xi - xj)
         P += term
     return simplify(P)

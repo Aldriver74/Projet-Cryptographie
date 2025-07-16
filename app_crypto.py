@@ -1,5 +1,4 @@
 from f_crypto import encode, decode, chiffrer, déchiffrer, clear_console, getMode, getMessage, getKey, generatePoints, getA0, getPoints, lagrange_sympy, getNumberOfParts, getSecretFromPoly0
-import time
 from colorama import Back, Fore, Style, deinit, init
 import os
 import pandas as pd 
