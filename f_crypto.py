@@ -1,3 +1,5 @@
+from __future__ import division
+from __future__ import print_function
 import random
 import re
 import secrets
@@ -5,6 +7,17 @@ import os
 from colorama import Back, Fore, Style, deinit, init
 import pandas as pd 
 
+import secrets
+import re
+from colorama import Back, Fore, Style, deinit, init
+import pandas as pd 
+from sympy import symbols, simplify
+from sympy.abc import x
+from sympy import Rational
+import random
+
+
+symbol_value = pd.read_excel("symbol_value.xlsx")
 SYMBOLS = 'AՒՔաբդեէըթժضЙصЦثBقУفК غC3-ሀለሐመعЕğアカサタナハマهςε567ᚱሠረሰሸᚹᚻ890\'ρ\"τЁ:;,.?!ゾドボポخDᚠᚨᛃحНجቀበቨተቸኀነûŭůυθιοù/úüūヤラワガザダバűիᚺųኘአከπασ^δφụᛗᛜᚲՋГኸወዐዘዠየደጀገጨጠጰጸፈፀፐشEسШγηသパイキシチニヒξκيЩᛟᛉ1بFԲԳԵلЗဆတနမအပကミリヰギジヂビငا2Хت4GنФمЫكHطВАذλζχψωβμIᛜᛏПءόРJؤОىЛώピウクスツヌフئKДЖوLЭàᛚᛝâáãЯMźظЧСNМစရေ်ျးယဖထИOИТPЬЪQБЮRSTUVWXYZaйцခလဘညာbуžéᛇᛒᚾèêëкムユルグズヅブcеēėęðěёdнгĕəẹeшщfзхgņňŋṅķƙфыŕプエケセテネヘřẁẃhвㅂㅈㄷㄱŵẅаɓñńiпשçԷԹԻԽԿՀՁՂՃՌՍՎՏՐՑćメレヱゲゼデベĉčדגכроĵĥоעיחלß§śŝšṣşףזסлjджkэяlペオコソトノホקч쇼ㅕㅑㅐㅔㅁㄴㅇㄹ호ㅓㅏㅣㅋㅌㅊ퓨ㅜㅡсmרмאḍɗטиוןםפ月了嘛起来nтьoъpĺľļł·бюqrstuvÿýỳŷƴwțţxṭįīïîìíị来说你好ıyþťzôœòó呀モヨロヲンゴ美啊õöøōőήọºΕΡΤΥΘΙΟΠ走路ΑΣΔΦΓΗΞ法ΚΛΖΧΨΩΒΝΜ'
 MAX_KEY_SIZE = len(SYMBOLS)
 sep = [':', '_']
@@ -38,7 +51,7 @@ full_alphabet = [
 ]
 
 
-
+#_____________\ RSM /_______________
 
 def clear_console():
     # Clear console based on the operating system
@@ -90,6 +103,8 @@ def decode (text,key):
         Trueletter = full_alphabet[R]
         translated += Trueletter
     return translated   
+
+#_____________\ CCSU /_______________
 
 def getMode():
     while True:
@@ -154,3 +169,110 @@ def déchiffrer (message, key):
         vraielettre = not vraielettre
             
     return translated
+
+#_____________\ SSS /_______________
+
+def getValue(letter):
+    ligne = symbol_value[symbol_value["Symbol"] == letter]
+    if not ligne.empty:
+        return int(ligne["Value"].values[0])
+
+def getA0(text):
+    a0=""
+    for symbol in text:
+        value=getValue(symbol)
+        a0 += str("0"+ str(value)+"0")
+    return a0
+
+def getNumberOfParts():
+    clear_console()
+    print(Fore.RED+'\nNumber of parts:\n'+Fore.GREEN)
+    n=int(input())
+    clear_console()
+    print(Fore.RED+'\nNumber of parts necessary to find the secret:\n'+Fore.GREEN)
+    k=int(input())
+    nork=[n, k]
+    return nork 
+
+def generatePoints(n, k, a0):
+    coefficients=[a0]
+    valuesofx=[]
+    ypoints=[]
+    for i in range (k-1):
+        negorposc=secrets.randbelow(2)
+        if negorposc == 1:
+            ai=secrets.randbelow(3000000000000)
+            coefficients.append(ai)
+        else:
+            ai=secrets.randbelow(3000000000000)
+            coefficients.append(int(-ai))
+
+    for z in range (n):
+        negorposx=secrets.randbelow(2)
+        if negorposx == 1:
+            x=secrets.randbelow(300)
+            y=sum(a *x**i for i, a in enumerate(coefficients))
+            k=secrets.randbelow(300)
+            print(Fore.GREEN+"("+str(x)+","+str(y+1596875498654165685896478585698569852589*k)+")"+Fore.WHITE)
+            #print(Fore.GREEN+"("+str(x)+","+str(y)+")"+Fore.WHITE)
+        
+        else:
+            x=secrets.randbelow(300)
+            x=int(-x)
+            y=sum(a *x**i for i, a in enumerate(coefficients))
+            k=secrets.randbelow(300)
+            print(Fore.GREEN+"("+str(x)+","+str((y+1596875498654165685896478585698569852589*k))+")"+Fore.WHITE)
+            #print(Fore.GREEN+"("+str(x)+","+str(y)+")"+Fore.WHITE)
+
+def getPoints():
+    print(Fore.RED+'How many points do you need ?\n'+Fore.GREEN)
+    k=int(input())
+    clear_console()
+    print(Fore.RED+'Enter your point, one by one :')
+    x_s=[]
+    y_s=[]
+    for i in range (0, k):
+        print (Fore.RED+"\n Point x "+str(i+1)+" :\n"+Fore.GREEN)
+        xpoint=input()
+        x_s.append(int(xpoint))
+        print (Fore.RED+"\n Point y "+str(i+1)+" :\n"+Fore.GREEN)
+        ypoint=input()
+        ypoint=(int(ypoint) % 1596875498654165685896478585698569852589)
+        ypoint=(int(ypoint))
+        y_s.append(ypoint)
+    x_s = [Rational(x) for x in x_s]
+    y_s = [Rational(y) for y in y_s]
+    xory=[x_s, y_s]
+    return xory
+
+def lagrange_sympy(x_vals, y_vals):
+    x = symbols('x')
+    n = len(x_vals)
+    P = 0
+    for i in range(n):
+        term = y_vals[i]
+        for j in range(n):
+            if i != j:
+                xi=int(x_vals[i])
+                xj=int(x_vals[j])
+                print (type(x))
+                term *= (x - xj) / (xi - xj)
+        P += term
+    return simplify(P)
+
+def getLetterFromValue(number):
+    ligne = symbol_value[symbol_value["Value"] == int(number) ]
+    if not ligne.empty:
+        return str(ligne["Symbol"].values[0])
+    
+def findTrueValue(text):
+    return re.findall(r'0(.*?)0', text) 
+    
+def getSecretFromPoly0(text):
+    text='0'+str(text)
+    secret=findTrueValue(str(text))
+    finalmess=""
+    for i in range (0, len (secret)):
+        letter=getLetterFromValue(secret[i])
+        finalmess += str(str(letter))
+    return finalmess
