@@ -99,7 +99,8 @@ if method == "3" :
         #print(f"Valeur exacte en x = 0 : {val_at_0}")
         secret=round(val_at_0)
         finalmess=getSecretFromPoly0(secret)
-        print(str(finalmess))
+        clear_console()
+        print(Fore.RED+'Your text is : \n '+Fore.GREEN+str(finalmess))
         print (Fore.WHITE+'\n['+Fore.GREEN+'SUCCESS'+Fore.WHITE+']\n')
 
 print('\033[0m')
