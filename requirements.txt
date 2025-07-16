@@ -1,0 +1,7 @@
+colorama
+re
+secrets
+os
+pandas
+sympy
+sympy.abc
