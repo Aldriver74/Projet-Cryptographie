@@ -101,7 +101,7 @@ if method == "3" :
         secret=round(val_at_0)
         finalmess=getSecretFromPoly0(secret)
         clear_console()
-        print(Fore.RED+'Your text is : \n '+Fore.GREEN+str(finalmess))
+        print(Fore.RED+'Your text is : \n \n'+Fore.GREEN+str(finalmess))
         print (Fore.WHITE+'\n['+Fore.GREEN+'SUCCESS'+Fore.WHITE+']\n')
 
 print('\033[0m')
