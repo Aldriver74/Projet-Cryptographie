@@ -7,6 +7,7 @@ from sympy.abc import x
 from sympy import Rational
 import random
 
+clear_console()
 print(Fore.RED+'\033[1m'+'\nChoose an encryption method: \n\n'+Fore.BLUE+ \
       '         1 CCSU (Caesar Cipher Salted and Updated, Security level:'+Fore.GREEN+' low'+Fore.BLUE+')\n' \
       '         2 RSM (Random Salted Moduloes, Security level:'+Fore.GREEN+' medium'+Fore.BLUE+')\n' \
