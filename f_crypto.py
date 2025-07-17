@@ -2,6 +2,7 @@ from __future__ import division
 from __future__ import print_function
 import random
 import re
+import time
 import secrets
 import os
 from colorama import Back, Fore, Style, deinit, init
@@ -189,56 +190,31 @@ def getNumberOfParts():
     nork=[n, k]
     return nork 
 
-def generatePoints(n, k, a0):
-    coefficients=[a0]
-    valuesofx=[]
-    ypoints=[]
-    for i in range (k-1):
-        negorposc=secrets.randbelow(2)
-        if negorposc == 1:
-            ai=secrets.randbelow(3000000000000)
-            coefficients.append(ai)
-        else:
-            ai=secrets.randbelow(3000000000000)
-            coefficients.append(int(-ai))
+def getPoints_v2():
+    print(Fore.RED+"Enter the points one for each line, with form (x,y) then an empty line to validate: \n \n"+Fore.GREEN)
+    x_s = []
+    y_s = []
 
-    for z in range (n):
-        negorposx=secrets.randbelow(2)
-        if negorposx == 1:
-            x=secrets.randbelow(300)
-            y=sum(a *x**i for i, a in enumerate(coefficients))
-            k=secrets.randbelow(300)
-            print(Fore.GREEN+"("+str(x)+","+str(y+1596875498654165685896478585698569852589*k)+")"+Fore.WHITE)
-            #print(Fore.GREEN+"("+str(x)+","+str(y)+")"+Fore.WHITE)
+    while True:
+        ligne = input()
+        if ligne.strip() == "":
+            break  # fin de l'entrée
+        ligne = ligne.strip().replace("(", "").replace(")", "")
+        try:
+            x_str, y_str = ligne.split(",")
+            x = int(x_str)
+            y = int(int(y_str) % 1596875498654165685896478585698569852589)
+            x_s.append(x)
+            y_s.append(y)
+        except ValueError:
+            print(f"Empty line ignored {ligne}")
+            continue
         
-        else:
-            x=secrets.randbelow(300)
-            x=int(-x)
-            y=sum(a *x**i for i, a in enumerate(coefficients))
-            k=secrets.randbelow(300)
-            print(Fore.GREEN+"("+str(x)+","+str((y+1596875498654165685896478585698569852589*k))+")"+Fore.WHITE)
-            #print(Fore.GREEN+"("+str(x)+","+str(y)+")"+Fore.WHITE)
-
-def getPoints():
-    print(Fore.RED+'How many points do you need ?\n'+Fore.GREEN)
-    k=int(input())
-    clear_console()
-    print(Fore.RED+'Enter your point, one by one :')
-    x_s=[]
-    y_s=[]
-    for i in range (0, k):
-        print (Fore.RED+"\n Point x "+str(i+1)+" :\n"+Fore.GREEN)
-        xpoint=input()
-        x_s.append(int(xpoint))
-        print (Fore.RED+"\n Point y "+str(i+1)+" :\n"+Fore.GREEN)
-        ypoint=input()
-        ypoint=(int(ypoint) % 1596875498654165685896478585698569852589)
-        ypoint=(int(ypoint))
-        y_s.append(ypoint)
-    x_s = [Rational(x) for x in x_s]
-    y_s = [Rational(y) for y in y_s]
-    xory=[x_s, y_s]
+        x_s = [Rational(x) for x in x_s]
+        y_s = [Rational(y) for y in y_s]
+        xory=[x_s, y_s]
     return xory
+
 
 def lagrange_sympy(x_vals, y_vals):
     x = symbols('x')
@@ -270,3 +246,42 @@ def getSecretFromPoly0(text):
         letter=getLetterFromValue(secret[i])
         finalmess += str(str(letter))
     return finalmess
+
+def generatePointsverbose(n, k, a0):
+    coefficients=[a0]
+    print(Fore.WHITE+'generating truly random coefficients...')
+    time.sleep(0.1)
+    for i in range (k-1):
+        negorposc=secrets.randbelow(2)
+        if negorposc == 1:
+            ai=secrets.randbelow(3000000000000)
+            coefficients.append(ai)
+        else:
+            ai=secrets.randbelow(3000000000000)
+            coefficients.append(int(-ai))
+    print(Fore.WHITE+'generating polynomial...')
+    time.sleep(0.1)
+    X=symbols('x')
+    poly=sum(a *X**i for i, a in enumerate(coefficients))
+    print('f(x)='+str(poly))
+    time.sleep(0.1)
+    print('generating truly random values of x...')
+    time.sleep(0.1)
+    print('adding moduloes...\n ')
+    time.sleep(0.3)
+    print(Fore.RED+'Your points are : \n'+Fore.GREEN)
+    for z in range (n):
+        negorposx=secrets.randbelow(2)
+        if negorposx == 1:
+            x=secrets.randbelow(300)
+            y=sum(a *x**i for i, a in enumerate(coefficients))
+            k=secrets.randbelow(300)
+            print(Fore.GREEN+"("+str(x)+","+str(y+1596875498654165685896478585698569852589*k)+")"+Fore.WHITE)
+            #print(Fore.GREEN+"("+str(x)+","+str(y)+")"+Fore.WHITE)
+        else:
+            x=secrets.randbelow(300)
+            x=int(-x)
+            y=sum(a *x**i for i, a in enumerate(coefficients))
+            k=secrets.randbelow(300)
+            print(Fore.GREEN+"("+str(x)+","+str((y+1596875498654165685896478585698569852589*k))+")"+Fore.WHITE)
+            #print(Fore.GREEN+"("+str(x)+","+str(y)+")"+Fore.WHITE)
