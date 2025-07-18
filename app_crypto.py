@@ -76,7 +76,7 @@ if method == "2" :
         print('adding salt...')
         time.sleep(0.3)
         if test == X :
-            print (Fore.RED+"\nResult: \n\n"+Fore.BLUE+str(result[0])+Fore.RED+'\nYour key is:\n\n"+Fore.BLUE+str(result[1])'+'_')
+            print (Fore.RED+"\nResult: \n\n"+Fore.BLUE+str(result[0])+Fore.RED+'\nYour key is:\n\n'+Fore.BLUE+str(result[1])+'_')
             print (Fore.WHITE+'\n['+Fore.GREEN+'SUCCESS'+Fore.WHITE+']\n')
         else: 
             print (Fore.RED+"Something went wrong, retry")
