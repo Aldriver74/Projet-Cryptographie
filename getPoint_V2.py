@@ -24,4 +24,3 @@ def separe_coordonnees_depuis_input():
         xory=[x_s, y_s]
     return xory
 
-# Exemple d'utilisation
